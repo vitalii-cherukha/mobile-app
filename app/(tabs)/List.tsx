@@ -5,7 +5,7 @@ import { FlatList, StyleSheet, TextInput } from "react-native";
 import ParallaxScrollView from "@/components/parallax-scroll-view";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
-import { Colors, Fonts } from "@/constants/theme";
+import { Fonts } from "@/constants/theme";
 import { useWeapons } from "@/contexts/WeaponContext";
 import { Weapon } from "@/types/weapon";
 
@@ -21,15 +21,21 @@ export default function TabTwoScreen() {
       style={[
         styles.weaponItem,
         {
-          borderColor: Colors.dark.icon,
+          borderColor: "#ccc",
+          backgroundColor: "white",
         },
       ]}
     >
-      <ThemedText style={styles.serialNumber}>{item.serialNumber}</ThemedText>
-      <ThemedText style={styles.name}>
+      <ThemedText style={[styles.serialNumber, { color: "#333" }]}>
+        {item.serialNumber}
+      </ThemedText>
+      <ThemedText style={[styles.model, { color: "#666" }]}>
+        {item.model}
+      </ThemedText>
+      <ThemedText style={[styles.name, { color: "#333" }]}>
         {item.firstName} {item.lastName}
       </ThemedText>
-      <ThemedText style={styles.date}>
+      <ThemedText style={[styles.date, { color: "#666" }]}>
         {new Date(item.dateAdded).toLocaleDateString()}
       </ThemedText>
     </ThemedView>
@@ -61,12 +67,13 @@ export default function TabTwoScreen() {
           style={[
             styles.searchInput,
             {
-              borderColor: Colors.dark.icon,
-              color: Colors.dark.text,
+              borderColor: "#ccc",
+              color: "#333",
+              backgroundColor: "white",
             },
           ]}
-          placeholder="Пошук за номером зброї, ім'ям або прізвищем"
-          placeholderTextColor={Colors.dark.icon}
+          placeholder="Пошук"
+          placeholderTextColor="#999"
           value={searchQuery}
           onChangeText={setSearchQuery}
         />
@@ -107,6 +114,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 10,
+
     fontSize: 16,
   },
   list: {
@@ -127,6 +135,12 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 16,
     marginBottom: 4,
+  },
+  model: {
+    fontSize: 16,
+    fontStyle: "italic",
+    marginBottom: 4,
+    opacity: 0.8,
   },
   date: {
     fontSize: 14,

@@ -13,24 +13,27 @@ interface AddWeaponModalProps {
 
 export const AddWeaponModal: React.FC<AddWeaponModalProps> = ({ visible, onClose }) => {
   const [serialNumber, setSerialNumber] = useState('');
+  const [model, setModel] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const { addWeapon } = useWeapons();
   const colorScheme = 'dark';
 
   const handleSubmit = () => {
-    if (!serialNumber.trim() || !firstName.trim() || !lastName.trim()) {
+    if (!serialNumber.trim() || !model.trim() || !firstName.trim() || !lastName.trim()) {
       Alert.alert('Помилка', 'Заповніть всі поля');
       return;
     }
 
     addWeapon({
       serialNumber: serialNumber.trim(),
+      model: model.trim(),
       firstName: firstName.trim(),
       lastName: lastName.trim(),
     });
 
     setSerialNumber('');
+    setModel('');
     setFirstName('');
     setLastName('');
     onClose();
@@ -41,37 +44,52 @@ export const AddWeaponModal: React.FC<AddWeaponModalProps> = ({ visible, onClose
     <Modal visible={visible} animationType="slide" transparent>
       <ThemedView style={styles.overlay}>
         <ThemedView style={styles.modal}>
-          <ThemedText style={styles.title}>Додати зброю</ThemedText>
+          <ThemedText style={[styles.title, { color: '#333' }]}>Додати зброю</ThemedText>
           
           <TextInput
             style={[styles.input, { 
-              borderColor: Colors.dark.icon,
-              color: Colors.dark.text 
+              borderColor: '#ccc',
+              color: '#333',
+              backgroundColor: 'white'
             }]}
             placeholder="Номер зброї"
-            placeholderTextColor={Colors.dark.icon}
+            placeholderTextColor="#999"
             value={serialNumber}
             onChangeText={setSerialNumber}
           />
           
           <TextInput
             style={[styles.input, { 
-              borderColor: Colors.dark.icon,
-              color: Colors.dark.text 
+              borderColor: '#ccc',
+              color: '#333',
+              backgroundColor: 'white'
+            }]}
+            placeholder="Модель зброї"
+            placeholderTextColor="#999"
+            value={model}
+            onChangeText={setModel}
+          />
+          
+          <TextInput
+            style={[styles.input, { 
+              borderColor: '#ccc',
+              color: '#333',
+              backgroundColor: 'white'
             }]}
             placeholder="Ім'я"
-            placeholderTextColor={Colors.dark.icon}
+            placeholderTextColor="#999"
             value={firstName}
             onChangeText={setFirstName}
           />
           
           <TextInput
             style={[styles.input, { 
-              borderColor: Colors.dark.icon,
-              color: Colors.dark.text 
+              borderColor: '#ccc',
+              color: '#333',
+              backgroundColor: 'white'
             }]}
             placeholder="Прізвище"
-            placeholderTextColor={Colors.dark.icon}
+            placeholderTextColor="#999"
             value={lastName}
             onChangeText={setLastName}
           />
@@ -85,7 +103,7 @@ export const AddWeaponModal: React.FC<AddWeaponModalProps> = ({ visible, onClose
             </TouchableOpacity>
             
             <TouchableOpacity 
-              style={[styles.button, { backgroundColor: Colors.dark.tint }]} 
+              style={[styles.button, { backgroundColor: '#666666' }]} 
               onPress={handleSubmit}
             >
               <ThemedText style={styles.submitButtonText}>Додати</ThemedText>
@@ -109,6 +127,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 12,
     gap: 16,
+    backgroundColor: 'white',
   },
   title: {
     fontSize: 20,
