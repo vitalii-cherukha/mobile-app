@@ -8,11 +8,11 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { Ionicons } from '@expo/vector-icons';
 
 import { AddWeaponModal } from "@/components/AddWeaponModal";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
-import { IconSymbol } from "@/components/ui/icon-symbol";
 import { Fonts } from "@/constants/theme";
 import { useWeapons } from "@/contexts/WeaponContext";
 import { Weapon } from "@/types/weapon";
@@ -82,14 +82,14 @@ export default function TabTwoScreen() {
           style={[styles.actionButton, { backgroundColor: "#4CAF50" }]}
           onPress={() => handleEdit(item)}
         >
-          <IconSymbol name="pencil" size={16} color="white" />
+          <Ionicons name="create-outline" size={16} color="white" />
         </TouchableOpacity>
 
         <TouchableOpacity
           style={[styles.actionButton, { backgroundColor: "#f44336" }]}
           onPress={() => handleDelete(item)}
         >
-          <IconSymbol name="minus.circle" size={16} color="white" />
+          <Ionicons name="trash-outline" size={16} color="white" />
         </TouchableOpacity>
       </ThemedView>
     </ThemedView>
