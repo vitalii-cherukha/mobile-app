@@ -7,6 +7,7 @@ interface WeaponContextType {
   addWeapon: (weapon: Omit<Weapon, 'id' | 'dateAdded'>) => void;
   updateWeapon: (id: string, weapon: Omit<Weapon, 'id' | 'dateAdded'>) => void;
   deleteWeapon: (id: string) => void;
+  toggleWeaponStatus: (id: string) => void;
   searchWeapons: (query: string) => Weapon[];
 }
 
@@ -59,6 +60,16 @@ export const WeaponProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     saveWeapons(updatedWeapons);
   };
 
+  const toggleWeaponStatus = (id: string) => {
+    const updatedWeapons = weapons.map(weapon => 
+      weapon.id === id 
+        ? { ...weapon, status: weapon.status === 'available' ? 'issued' : 'available' as 'available' | 'issued' }
+        : weapon
+    );
+    setWeapons(updatedWeapons);
+    saveWeapons(updatedWeapons);
+  };
+
   const deleteWeapon = (id: string) => {
     const updatedWeapons = weapons.filter(weapon => weapon.id !== id);
     setWeapons(updatedWeapons);
@@ -78,7 +89,7 @@ export const WeaponProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   };
 
   return (
-    <WeaponContext.Provider value={{ weapons, addWeapon, updateWeapon, deleteWeapon, searchWeapons }}>
+    <WeaponContext.Provider value={{ weapons, addWeapon, updateWeapon, deleteWeapon, toggleWeaponStatus, searchWeapons }}>
       {children}
     </WeaponContext.Provider>
   );

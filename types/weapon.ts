@@ -4,5 +4,6 @@ export interface Weapon {
   model: string;
   firstName: string;
   lastName: string;
+  status: 'available' | 'issued';
   dateAdded: string;
 }

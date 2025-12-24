@@ -43,6 +43,7 @@ export const AddWeaponModal: React.FC<AddWeaponModalProps> = ({ visible, onClose
       model: model.trim(),
       firstName: firstName.trim(),
       lastName: lastName.trim(),
+      status: 'available' as 'available' | 'issued',
     };
 
     if (editWeapon) {

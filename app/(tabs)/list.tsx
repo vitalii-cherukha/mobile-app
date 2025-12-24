@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { useState } from "react";
 import {
@@ -8,7 +9,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { Ionicons } from '@expo/vector-icons';
 
 import { AddWeaponModal } from "@/components/AddWeaponModal";
 import { ThemedText } from "@/components/themed-text";
@@ -21,7 +21,7 @@ export default function TabTwoScreen() {
   const [searchQuery, setSearchQuery] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [editWeapon, setEditWeapon] = useState<Weapon | null>(null);
-  const { searchWeapons, deleteWeapon } = useWeapons();
+  const { searchWeapons, deleteWeapon, toggleWeaponStatus } = useWeapons();
 
   const filteredWeapons = searchWeapons(searchQuery);
 
@@ -60,6 +60,20 @@ export default function TabTwoScreen() {
         },
       ]}
     >
+      <ThemedView
+        style={[
+          styles.statusBadge,
+          {
+            backgroundColor:
+              item.status === "available" ? "#4CAF50" : "#FF9800",
+          },
+        ]}
+      >
+        <ThemedText style={styles.statusText}>
+          {item.status === "available" ? "На складі" : "Видана"}
+        </ThemedText>
+      </ThemedView>
+      
       <ThemedView style={styles.weaponInfo}>
         <ThemedText style={[styles.serialNumber, { color: "#333" }]}>
           {item.serialNumber}
@@ -78,6 +92,27 @@ export default function TabTwoScreen() {
       </ThemedView>
 
       <ThemedView style={styles.actions}>
+        <TouchableOpacity
+          style={[
+            styles.actionButton,
+            {
+              backgroundColor:
+                item.status === "available" ? "#FF9800" : "#4CAF50",
+            },
+          ]}
+          onPress={() => toggleWeaponStatus(item.id)}
+        >
+          <Ionicons
+            name={
+              item.status === "available"
+                ? "arrow-forward-outline"
+                : "arrow-back-outline"
+            }
+            size={16}
+            color="white"
+          />
+        </TouchableOpacity>
+
         <TouchableOpacity
           style={[styles.actionButton, { backgroundColor: "#4CAF50" }]}
           onPress={() => handleEdit(item)}
@@ -188,6 +223,7 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
   },
   weaponItem: {
+    position: 'relative',
     flexDirection: "row",
     padding: 16,
     marginBottom: 8,
@@ -198,6 +234,20 @@ const styles = StyleSheet.create({
   },
   weaponInfo: {
     flex: 1,
+  },
+  statusBadge: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 12,
+    zIndex: 1,
+  },
+  statusText: {
+    color: "white",
+    fontSize: 12,
+    fontWeight: "bold",
   },
   actions: {
     flexDirection: "row",
