@@ -156,12 +156,12 @@ const styles = StyleSheet.create({
   },
   header: {
     height: 200,
-    width: '100%',
+    width: "100%",
   },
   listImg: {
     height: 200,
-    width: '100%',
-    resizeMode: 'cover',
+    width: "100%",
+    resizeMode: "cover",
   },
   titleContainer: {
     flexDirection: "row",
