@@ -73,7 +73,7 @@ export default function TabTwoScreen() {
           {item.status === "available" ? "На складі" : "Видана"}
         </ThemedText>
       </ThemedView>
-      
+
       <ThemedView style={styles.weaponInfo}>
         <ThemedText style={[styles.serialNumber, { color: "#333" }]}>
           {item.serialNumber}
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
   },
   weaponItem: {
-    position: 'relative',
+    position: "relative",
     flexDirection: "row",
     padding: 16,
     marginBottom: 8,
@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   statusBadge: {
-    position: 'absolute',
+    position: "absolute",
     top: 8,
     right: 8,
     paddingHorizontal: 8,
